@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Charset e viewport para dispositivos -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Compatibilidade com IE -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <!-- SEO Básico -->
+  <meta name="description" content="Lista de todos os sorteios da Mega Sena com os números sorteados." />
+  <meta name="keywords" content="Mega Sena, sorteios, números, loteria, resultados, apostas" />
+  <meta name="author" content="Seu Nome" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow" />
+  <meta name="language" content="pt-BR" />
+  <meta http-equiv="Content-Language" content="pt-BR" />
+
+  <!-- Open Graph para redes sociais -->
+  <meta property="og:title" content="Resultados da Mega Sena - Sorteios e Números" />
+  <meta property="og:description" content="Confira todos os sorteios da Mega Sena e os números sorteados em uma tabela fácil de consultar." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.seusite.com/mega-sena.html" />
+  <meta property="og:image" content="https://www.seusite.com/imagens/mega-sena-preview.jpg" />
+  <meta property="og:locale" content="pt_BR" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Resultados da Mega Sena - Sorteios e Números" />
+  <meta name="twitter:description" content="Confira todos os sorteios da Mega Sena e os números sorteados." />
+  <meta name="twitter:image" content="https://www.seusite.com/imagens/mega-sena-preview.jpg" />
+  <meta name="twitter:site" content="@SeuUsuarioTwitter" />
+
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Tema para navegador mobile -->
+  <meta name="theme-color" content="#228B22" />
+
+  <title>Resultados da Mega Sena - Sorteios e Números</title>
+
+  <style>
+    /* Estilos gerais da página */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      margin: 20px;
+      color: #222;
+    }
+
+    h1 {
+      text-align: center;
+      color: #006400;
+      margin-bottom: 30px;
+    }
+
+    /* Estilos da tabela */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #228B22;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    /* Estilo para as bolas com números */
+    .bola {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      margin: 2px;
+      border-radius: 50%;
+      background-color: #228B22;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    /* Container da propaganda piscante fixa no centro */
+    #propaganda {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #ff0044;
+      color: white;
+      padding: 30px 40px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #ff0044;
+      animation: piscar 1s infinite alternate;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* Animação de piscar */
+    @keyframes piscar {
+      from { opacity: 1; }
+      to { opacity: 0.3; }
+    }
+
+    /* Botão fechar da propaganda */
+    #btnFechar {
+      background: transparent;
+      border: 2px solid white;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      line-height: 26px;
+      text-align: center;
+      user-select: none;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    #btnFechar:hover {
+      background: white;
+      color: #ff0044;
+    }
+
+    /* Responsividade para telas pequenas */
+    @media (max-width: 600px) {
+      body {
+        margin: 10px;
+      }
+
+      table, th, td {
+        font-size: 0.9rem;
+      }
+
+      #propaganda {
+        font-size: 1.2rem;
+        padding: 20px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Título da página -->
+  <h1>Resultados da Mega Sena</h1>
+
+  <!-- Tabela que será preenchida via JavaScript -->
+  <table aria-label="Tabela de sorteios da Mega Sena">
+    <thead>
+      <tr>
+        <th>Concurso</th>
+        <th>Data</th>
+        <th>Números Sorteados</th>
+      </tr>
+    </thead>
+    <tbody id="tabela-resultados">
+      <!-- Linhas da tabela serão inseridas aqui via JS -->
+    </tbody>
+  </table>
+
+  <!-- Propaganda piscante no centro da tela -->
+  <div id="propaganda" role="alert" aria-live="assertive" aria-atomic="true">
+    <a href="#" target="_blank" id='ok'>CONFERIR ESSA OPORTUNIDADE NÃO PERCA</a>
+    <button id="btnFechar" aria-label="Fechar propaganda">×</button>
+  </div>
+
+  <script>
+    /*
+      Array com dados fictícios dos últimos sorteios da Mega Sena.
+      Cada objeto representa um sorteio com:
+      - concurso: número do concurso
+      - data: data do sorteio em formato ISO (YYYY-MM-DD)
+      - numeros: array com os 6 números sorteados
+    */
+    const megaSenaSorteios = [
+      {
+        concurso: 2500,
+        data: "2024-06-30",
+        numeros: [5, 12, 23, 32, 38, 45]
+      },
+      {
+        concurso: 2499,
+        data: "2024-06-27",
+        numeros: [3, 9, 15, 22, 36, 44]
+      },
+      {
+        concurso: 2498,
+        data: "2024-06-24",
+        numeros: [1, 7, 18, 28, 33, 40]
+      },
+      {
+        concurso: 2497,
+        data: "2024-06-20",
+        numeros: [2, 14, 20, 31, 37, 48]
+      },
+      {
+  concurso: 2497,
+  data: "2024-06-20",
+  numeros: [2, 14, 20, 31, 37, 48]
+},
+{
+  concurso: 2498,
+  data: "2024-06-23",
+  numeros: [5, 12, 23, 32, 38, 45]
+},
+{
+  concurso: 2499,
+  data: "2024-06-25",
+  numeros: [3, 11, 17, 29, 41, 50]
+},
+{
+  concurso: 2500,
+  data: "2024-06-30",
+  numeros: [5, 12, 23, 32, 38, 45]
+},
+{
+  concurso: 2501,
+  data: "2024-07-02",
+  numeros: [6, 15, 21, 28, 35, 49]
+},
+{
+  concurso: 2502,
+  data: "2024-07-05",
+  numeros: [7, 13, 19, 26, 33, 44]
+},
+{
+  concurso: 2503,
+  data: "2024-07-07",
+  numeros: [1, 8, 14, 20, 27, 39]
+},
+{
+  concurso: 2504,
+  data: "2024-07-10",
+  numeros: [4, 10, 16, 22, 29, 42]
+},
+{
+  concurso: 2505,
+  data: "2024-07-12",
+  numeros: [3, 9, 15, 21, 28, 36]
+},
+{
+  concurso: 2506,
+  data: "2024-07-15",
+  numeros: [2, 11, 18, 24, 30, 40]
+},
+{
+  concurso: 2507,
+  data: "2024-07-17",
+  numeros: [5, 14, 20, 26, 32, 43]
+},
+{
+  concurso: 2508,
+  data: "2024-07-20",
+  numeros: [6, 12, 19, 25, 31, 41]
+},
+{
+  concurso: 2509,
+  data: "2024-07-22",
+  numeros: [7, 13, 21, 27, 33, 44]
+},
+{
+  concurso: 2510,
+  data: "2024-07-25",
+  numeros: [1, 9, 15, 22, 28, 37]
+},
+{
+  concurso: 2511,
+  data: "2024-07-27",
+  numeros: [4, 10, 16, 23, 29, 42]
+},
+{
+  concurso: 2512,
+  data: "2024-07-30",
+  numeros: [3, 8, 14, 20, 26, 35]
+},
+{
+  concurso: 2513,
+  data: "2024-08-01",
+  numeros: [2, 11, 17, 24, 30, 41]
+},
+{
+  concurso: 2514,
+  data: "2024-08-03",
+  numeros: [5, 13, 19, 25, 31, 39]
+},
+{
+  concurso: 2515,
+  data: "2024-08-06",
+  numeros: [6, 12, 18, 23, 29, 40]
+},
+{
+  concurso: 2516,
+  data: "2024-08-08",
+  numeros: [7, 14, 20, 26, 32, 43]
+} 
+      // Adicione mais sorteios aqui se quiser
+    ];
+
+    /**
+     * Função para formatar data no formato DD/MM/AAAA
+     * @param {string} dataISO - data no formato ISO (YYYY-MM-DD)
+     * @returns {string} data formatada em DD/MM/AAAA
+     */
+    function formatarData(dataISO) {
+      const data = new Date(dataISO);
+      const dia = String(data.getDate()).padStart(2, '0');
+      const mes = String(data.getMonth() + 1).padStart(2, '0');
+      const ano = data.getFullYear();
+      return `${dia}/${mes}/${ano}`;
+    }
+
+    // Seleciona o corpo da tabela onde as linhas serão inseridas
+    const tbody = document.getElementById('tabela-resultados');
+
+    // Loop para criar as linhas da tabela para cada sorteio
+    megaSenaSorteios.forEach(sorteio => {
+      // Cria a linha da tabela
+      const tr = document.createElement('tr');
+
+      // Cria a célula do concurso e adiciona o texto
+      const tdConcurso = document.createElement('td');
+      tdConcurso.textContent = sorteio.concurso;
+      tr.appendChild(tdConcurso);
+
+      // Cria a célula da data, formatando antes
+      const tdData = document.createElement('td');
+      tdData.textContent = formatarData(sorteio.data);
+      tr.appendChild(tdData);
+
+      // Cria a célula dos números sorteados
+      const tdNumeros = document.createElement('td');
+      sorteio.numeros.forEach(num => {
+        // Para cada número, cria um span com estilo de "bola"
+        const span = document.createElement('span');
+        span.className = 'bola';
+        span.textContent = num.toString().padStart(2, '0');
+        tdNumeros.appendChild(span);
+      });
+      tr.appendChild(tdNumeros);
+
+      // Adiciona a linha completa ao corpo da tabela
+      tbody.appendChild(tr);
+    });
+
+    // Seleciona o botão fechar da propaganda
+    const btnFechar = document.getElementById('btnFechar');
+    const propaganda = document.getElementById('propaganda');
+
+    // Evento para fechar (esconder) a propaganda ao clicar no botão
+    btnFechar.addEventListener('click', () => {
+      propaganda.style.display = 'none';
+    });
+  </script>
+  <!-----------------CONTROLA A PROPAGANDA-->
+  <script>
+    function mudar(){
+        const links=[
+             "https://hostinger.com.br?REFERRALCODE=SSNVICTORXU8",
+        "https://geocredibnkvitoria.com/",
+        "https://vpserp.vercel.app/",
+        "https://creditopessoal.vercel.app/",
+        "https://brasilbrasileiross.blogspot.com/",
+        "https://stfly.biz/7MNLF",
+        "https://www.espiritosanto-es.com.br/linhadotempovitoria/",
+        "https://piadasrepositorio.vercel.app/",
+        "https://www.youtube.com/watch?v=gBclanEnn88",
+        "https://ocomerciobrasileironoticia.blogspot.com/2025/05/erp-profissional-para-empresas.html",
+        "https://www.youtube.com/@gamenologia",
+        "https://jogosantigos472302513.wordpress.com/maquinas-vps-temos-todas-as-opcoes-de-maqinas-para-voce/",
+        "https://bibliadonline.netlify.app/",
+        "https://www.larissasaib.com.br/",
+        "https://remarkable-gelato-4db597.netlify.app/consorciopagina.html",
+        "https://www.airbnb.com.br/r/saibvictore?s=6&t=061n0g"
+        ];
+        function random(arr){
+            return Math.floor(Math.random()* arr.length);
+        }
+        const mudaar=random(links);
+        const mudei=links[mudaar];
+        document.getElementById('ok').href=mudei;
+    }
+    setInterval(mudar,400);
+  </script>
+<!-----------------CONTROLA A PROPAGANDA-->
+</body>
+</html>
